@@ -1,0 +1,10 @@
+.header {
+  border-bottom: 1px solid #f2f4f7;
+  padding: 24px 120px;
+  margin-bottom: 8px;
+  height: 68px;
+}
+
+.header_container {
+  display: flex;
+}

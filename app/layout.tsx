@@ -5,7 +5,7 @@ import './globals.css';
 const manrope = Manrope({
   variable: '--font-family',
   subsets: ['latin'],
-  weight: ['500', '600', '700'],
+  weight: ['400', '500', '600', '700'],
   display: 'swap',
 });
 

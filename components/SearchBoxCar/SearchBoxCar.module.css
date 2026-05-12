@@ -1,0 +1,88 @@
+.form {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  height: 68px;
+  align-items: flex-end;
+}
+
+.brand_container,
+.price_container,
+.mileage_container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form_label {
+  font-size: 12px;
+  line-height: 1.33;
+  color: #8d929a;
+}
+
+.brand_select {
+  border: none;
+  border-radius: 12px;
+  padding: 0 16px;
+  width: 204px;
+  height: 44px;
+  font-weight: 500;
+  display: flex;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+.price_select {
+  border: none;
+  border-radius: 12px;
+  padding: 12px 16px;
+  width: 196px;
+  height: 44px;
+  font-weight: 500;
+  display: flex;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+.min_input {
+  border-right: 1px solid #dadde1;
+  border-radius: 12px 0 0 12px;
+  width: 160px;
+  height: 44px;
+  border-top: none;
+  border-left: none;
+  border-bottom: none;
+  padding: 12px 24px;
+}
+
+.min_input::placeholder,
+.max_input::placeholder {
+  font-weight: 500;
+  color: #101828;
+}
+
+.max_input {
+  border-radius: 0 12px 12px 0;
+  width: 160px;
+  height: 44px;
+  border: none;
+  padding: 12px 24px;
+}
+
+.form_btn {
+  border-radius: 12px;
+  padding: 12px 51px;
+  width: 156px;
+  height: 44px;
+  background-color: #00aad4;
+  color: #fff;
+  font-weight: 600;
+  align-self: flex-end;
+}
+
+.clear_btn {
+  width: 156px;
+  height: 20px;
+  color: #8d929a;
+  font-weight: 500;
+}

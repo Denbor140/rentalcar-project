@@ -1,0 +1,64 @@
+.cars_list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+
+.car_list_item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  border-radius: 16px;
+  padding: 16px;
+  width: calc((100% - 96px) / 4);
+  background-color: #fff;
+}
+
+.car_card_container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.card_img {
+  border-radius: 14px;
+  height: 268px;
+  object-fit: cover;
+}
+
+.car_info_container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.car_info {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.car_info_name,
+.car_info_price {
+  font-weight: 500;
+}
+
+.car_info_model {
+  color: #00aad4;
+}
+
+.car_meta_container {
+  width: 100%;
+  border-radius: 8px;
+  padding: 8px;
+  background-color: #f5f5f5;
+}
+
+.car_list_btn {
+  border-radius: 12px;
+  padding: 12px 81px;
+  width: 244px;
+  height: 44px;
+  color: #fff;
+  font-weight: 600;
+  background-color: #00aad4;
+}

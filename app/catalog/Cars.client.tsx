@@ -1,5 +1,6 @@
 'use client';
 
+import css from './page.module.css';
 import { useState } from 'react';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { FetchCarsListResponse, getCarsList } from '../api/api';
@@ -53,12 +54,12 @@ export default function CarsClient({
   };
 
   return (
-    <main>
-      <section>
+    <main className={css.main}>
+      <section className={css.searchbox_container}>
         <SearchBoxCar brands={brands} prices={prices} onChange={handleSearch} />
       </section>
 
-      <section>
+      <section className={css.cars_list_container}>
         {data && data.cars.length > 0 && <CarList cars={data?.cars} />}
       </section>
     </main>

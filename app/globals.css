@@ -1,11 +1,10 @@
 @import 'modern-normalize/modern-normalize.css';
 
 body {
-  font-family: var(--font-family), sans-serif;
+  font-family: var(--font-family), 'Inter', sans-serif;
   font-size: 16px;
   line-height: 1.25;
   color: #101828;
-  margin: 0;
 }
 
 h1,

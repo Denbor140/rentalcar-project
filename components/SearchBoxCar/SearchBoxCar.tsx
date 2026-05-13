@@ -1,5 +1,6 @@
+import CustomSelect from '../CustomSelect/CustomSelect';
 import css from './SearchBoxCar.module.css';
-import { useId } from 'react';
+import { useId, useState } from 'react';
 
 interface SearchBoxCarProps {
   brands: string[];
@@ -13,59 +14,53 @@ export default function SearchBoxCar({
   onChange,
 }: SearchBoxCarProps) {
   const fieldId = useId();
+  const [brand, setBrand] = useState('');
+  const [price, setPrice] = useState('');
+  const [minMileage, setMinMileage] = useState('');
+  const [maxMileage, setMaxMileage] = useState('');
 
-  const handleSubmit = (formData: FormData) => {
-    const brand = formData.get('brand') as string;
-    const price = formData.get('price') as string;
-    const minMileage = formData.get('minMileage') as string;
-    const maxMileage = formData.get('maxMileage') as string;
-
+  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
     onChange(brand, price, minMileage, maxMileage);
+  };
+
+  const handleClear = () => {
+    setBrand('');
+    setPrice('');
+    setMinMileage('');
+    setMaxMileage('');
+    onChange('', '', '', '');
   };
 
   return (
     <>
-      <form action={handleSubmit} className={css.form}>
+      <form onSubmit={handleSubmit} className={css.form}>
         <div className={css.brand_container}>
           <label htmlFor={`${fieldId}-brand`} className={css.form_label}>
             Car brand
           </label>
-          <select
-            name="brand"
-            id={`${fieldId}-brand`}
-            defaultValue=""
-            className={css.brand_select}
-          >
-            <option value="" hidden>
-              Choose brand
-            </option>
-            {brands.map((brand) => (
-              <option key={brand} value={brand}>
-                {brand}
-              </option>
-            ))}
-          </select>
+          <CustomSelect
+            options={brands}
+            value={brand}
+            onChange={setBrand}
+            placeholder="Choose brand"
+            variant="brand"
+          />
         </div>
+
         <div className={css.price_container}>
           <label htmlFor={`${fieldId}-price`} className={css.form_label}>
             Price/ 1 hour
           </label>
-          <select
-            name="price"
-            defaultValue=""
-            id={`${fieldId}-price`}
-            className={css.price_select}
-          >
-            <option value="" disabled hidden>
-              Choose a price
-            </option>
-            {prices.map((price) => (
-              <option key={price} value={price}>
-                {price}
-              </option>
-            ))}
-          </select>
+          <CustomSelect
+            options={prices}
+            value={price}
+            onChange={setPrice}
+            placeholder="Choose a price"
+            variant="price"
+          />
         </div>
+
         <div className={css.mileage_container}>
           <label htmlFor={`${fieldId}-mileage`} className={css.form_label}>
             Сar mileage / km
@@ -74,24 +69,29 @@ export default function SearchBoxCar({
             <input
               type="text"
               name="minMileage"
+              value={minMileage}
               placeholder="From"
               id={`${fieldId}-mileage`}
               className={css.min_input}
+              onChange={(e) => setMinMileage(e.target.value)}
             />
             <input
               type="text"
               name="maxMileage"
+              value={maxMileage}
               placeholder="To"
               id={`${fieldId}-mileage`}
               className={css.max_input}
+              onChange={(e) => setMaxMileage(e.target.value)}
             />
           </div>
         </div>
+
         <button type="submit" className={css.form_btn}>
           Search
         </button>
       </form>
-      <button type="button" className={css.clear_btn}>
+      <button type="button" className={css.clear_btn} onClick={handleClear}>
         Clear filters
       </button>
     </>

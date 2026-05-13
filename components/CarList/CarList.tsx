@@ -26,29 +26,21 @@ export default function CarList({ cars }: CarListProps) {
 
               <div className={css.car_info_container}>
                 <div className={css.car_info}>
-                  <p className={css.car_info_name}>
+                  <h3 className={css.car_info_name}>
                     {car.brand}{' '}
                     <span className={css.car_info_model}>{car.model}</span>,{' '}
                     {car.year}
-                  </p>
+                  </h3>
 
                   <p className={css.car_info_price}>${car.rentalPrice}</p>
                 </div>
 
-                <div className={css.car_meta_container}>
-                  <div>
-                    <p className={css.address}>
-                      <span>{city}</span>, <span>{country}</span>
-                    </p>
-
-                    <p className={css.rental}>{car.rentalCompany}</p>
-                  </div>
-
-                  <div>
-                    <p className={css.type}>{car.type}</p>
-
-                    <p className={css.mileage}>{car.mileage}</p>
-                  </div>
+                <div className={css.car_meta}>
+                  <span>{city}</span>
+                  <span>{country}</span>
+                  <span>{car.rentalCompany}</span>
+                  <span>{car.type}</span>
+                  <span>{car.mileage}</span>
                 </div>
               </div>
             </div>

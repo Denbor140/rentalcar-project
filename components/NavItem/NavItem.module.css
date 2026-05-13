@@ -6,8 +6,14 @@
 
 .nav_link {
   font-weight: 500;
+  transition: color 0.3s ease-in-out;
 }
 
 .nav_link_active {
   color: #00aad4;
+}
+
+.nav_link:hover,
+.nav_link:focus {
+  color: #0095ba;
 }

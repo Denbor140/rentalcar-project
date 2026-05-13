@@ -6,6 +6,7 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { FetchCarsListResponse, getCarsList } from '../api/api';
 import SearchBoxCar from '@/components/SearchBoxCar/SearchBoxCar';
 import CarList from '@/components/CarList/CarList';
+import Loader from '@/components/Loader/Loader';
 
 const limit = 12;
 
@@ -28,7 +29,7 @@ export default function CarsClient({
   const [maxMeleage, setMaxMileage] = useState(clientMaxMeleage);
   const [page, setPage] = useState(1);
 
-  const { data } = useQuery<FetchCarsListResponse>({
+  const { data, isLoading } = useQuery<FetchCarsListResponse>({
     queryKey: ['cars', brand, price, minMeleage, maxMeleage, limit, page],
     queryFn: () =>
       getCarsList(brand, price, minMeleage, maxMeleage, limit, page),
@@ -54,14 +55,23 @@ export default function CarsClient({
   };
 
   return (
-    <main className={css.main}>
-      <section className={css.searchbox_container}>
-        <SearchBoxCar brands={brands} prices={prices} onChange={handleSearch} />
-      </section>
-
-      <section className={css.cars_list_container}>
-        {data && data.cars.length > 0 && <CarList cars={data?.cars} />}
-      </section>
-    </main>
+    <div className={css.container}>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <section className={css.searchbox_container}>
+            <SearchBoxCar
+              brands={brands}
+              prices={prices}
+              onChange={handleSearch}
+            />
+          </section>
+          <section className={css.cars_list_container}>
+            {data && data.cars.length > 0 && <CarList cars={data?.cars} />}
+          </section>
+        </>
+      )}
+    </div>
   );
 }

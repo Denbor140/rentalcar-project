@@ -1,3 +1,14 @@
+.layout_container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main {
+  display: flex;
+  flex: 1;
+}
+
 .hero_container {
   background-image: url('/hero-img.jpg');
   background-size: cover;
@@ -7,8 +18,8 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
+  flex: 1;
   padding-bottom: 60px;
-  min-height: calc(100vh - 68px - 4px);
 }
 
 .hero_content {
@@ -46,4 +57,11 @@
   background-color: #00aad4;
   font-weight: 600;
   color: #fff;
+  outline: none;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.hero_btn:hover,
+.hero_btn:focus {
+  background-color: #0095ba;
 }

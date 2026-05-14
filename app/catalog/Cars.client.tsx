@@ -55,7 +55,7 @@ export default function CarsClient({
   };
 
   return (
-    <div className={css.container}>
+    <div className={`${css.container} ${css.page_container}`}>
       {isLoading ? (
         <Loader />
       ) : (

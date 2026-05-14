@@ -16,47 +16,45 @@ export default function CarDetailsClient() {
     refetchOnMount: false,
   });
   return (
-    <div className={css.container}>
-      <div>
+    <div className={`${css.container} ${css.page_container}`}>
+      <div className={css.car_lease_container}>
         <Image
+          className={css.car_img}
           src={`${car?.img}`}
           alt={`${car?.brand} ${car?.model}`}
           width={640}
           height={512}
           loading="eager"
         />
-        {/* Форма оренди */}
         <LeaseForm />
       </div>
 
-      {/* Блок із інфою машини */}
-      <div>
-        <div>
-          <div>
-            <h3>
+      <div className={css.car_details_container}>
+        <div className={css.car_details_wrapper}>
+          <div className={css.car_title_wrapper}>
+            <h3 className={css.car_title}>
               {car?.brand} {car?.model}, {car?.year}
             </h3>
-            <p>Article: {car?.article}</p>
+            <p className={css.car_article}>Article: {car?.article}</p>
           </div>
 
-          <div>
-            <div>
-              <svg width={16} height={16}>
-                <use href="/sprite.svg#icon-location"></use>
-              </svg>
-              <p>{car?.address}</p>
-            </div>
-            <p>{`$${car?.rentalPrice}`}</p>
+          <div className={css.car_address_wrapper}>
+            <svg width={16} height={16}>
+              <use href="/sprite.svg#icon-location"></use>
+            </svg>
+            <p className={css.car_address}>{car?.address}</p>
           </div>
-          <p>{car?.description}</p>
+          <p className={css.car_price}>{`$${car?.rentalPrice}`}</p>
+
+          <p className={css.car_descr}>{car?.description}</p>
         </div>
 
-        <div>
-          <div>
-            <h3>Rental Conditions: </h3>
-            <ul>
+        <div className={css.car_info_container}>
+          <div className={css.rental_conditions_wrapper}>
+            <h3 className={css.car_rental_title}>Rental Conditions: </h3>
+            <ul className={css.car_condition_list}>
               {car?.rentalConditions.map((condition) => (
-                <li key={condition}>
+                <li key={condition} className={css.car_condition_item}>
                   <svg width={16} height={16}>
                     <use href="/sprite.svg#icon-check-circle"></use>
                   </svg>
@@ -66,34 +64,34 @@ export default function CarDetailsClient() {
             </ul>
           </div>
 
-          <div>
-            <h3>Car Specifications:</h3>
-            <ul>
-              <li>
+          <div className={css.car_specifications_wrapper}>
+            <h3 className={css.car_specification_title}>Car Specifications:</h3>
+            <ul className={css.car_specifications_list}>
+              <li className={css.car_specification_item}>
                 <svg width={16} height={16}>
                   <use href="/sprite.svg#icon-calendar"></use>
                 </svg>
                 Year: {car?.year}
               </li>
-              <li>
+              <li className={css.car_specification_item}>
                 <svg width={16} height={16}>
                   <use href="/sprite.svg#icon-car"></use>
                 </svg>
                 Type: {car?.type}
               </li>
-              <li>
+              <li className={css.car_specification_item}>
                 <svg width={16} height={16}>
                   <use href="/sprite.svg#icon-fuel-pump"></use>
                 </svg>
                 Fuel Consumption: {car?.fuelConsumption}
               </li>
-              <li>
+              <li className={css.car_specification_item}>
                 <svg width={16} height={16}>
                   <use href="/sprite.svg#icon-gear"></use>
                 </svg>
                 Engine: {car?.engineSize}
               </li>
-              <li>
+              <li className={css.car_specification_item}>
                 <svg width={16} height={16}>
                   <use href="/sprite.svg#icon-ph_road-horizon"></use>
                 </svg>
@@ -102,13 +100,13 @@ export default function CarDetailsClient() {
             </ul>
           </div>
 
-          <div>
-            <h3>Features</h3>
-            <ul>
+          <div className={css.car_features_wrapper}>
+            <h3 className={css.car_features_title}>Features</h3>
+            <ul className={css.car_features_list}>
               {(car?.accessories ?? [])
                 .sort((a, b) => a.localeCompare(b))
                 .map((accessorie) => (
-                  <li key={accessorie}>
+                  <li key={accessorie} className={css.car_accessorie_item}>
                     <svg width={16} height={16}>
                       <use href="/sprite.svg#icon-check-circle"></use>
                     </svg>
@@ -119,7 +117,10 @@ export default function CarDetailsClient() {
               {(car?.functionalities ?? [])
                 .sort((a, b) => a.localeCompare(b))
                 .map((functionalitie) => (
-                  <li key={functionalitie}>
+                  <li
+                    key={functionalitie}
+                    className={css.car_functionalitie_item}
+                  >
                     <svg width={16} height={16}>
                       <use href="/sprite.svg#icon-check-circle"></use>
                     </svg>

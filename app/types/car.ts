@@ -16,3 +16,7 @@ export interface Car {
   rentalConditions: string[];
   mileage: number;
 }
+
+export interface CarWithArticle extends Car {
+  article: string;
+}

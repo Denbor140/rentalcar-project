@@ -31,6 +31,11 @@ export const getCarsList = async (
   return data;
 };
 
+export const getOneCar = async (id: string): Promise<Car> => {
+  const { data } = await api.get<Car>(`/cars/${id}`);
+  return data;
+};
+
 export const getBrandList = async () => {
   const { data } = await api.get<string[]>('/brands');
   return data;

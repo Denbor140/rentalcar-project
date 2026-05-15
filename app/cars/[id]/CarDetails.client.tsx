@@ -1,6 +1,6 @@
 'use client';
 
-import { getOneCar } from '@/app/api/api';
+import { getOneCar } from '@/lib/api/api';
 import css from './CarDetails.module.css';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';

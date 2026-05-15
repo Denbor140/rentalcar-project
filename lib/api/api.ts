@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { Car, CarWithArticle } from '../types/car';
-import { getArticleCar } from './_utils/getArticleCar';
+import { Car, CarWithArticle } from '@/app/types/car';
+import { getArticleCar } from '@/app/api/_utils/getArticleCar';
 
 export const api = axios.create({
   baseURL: 'https://car-rental-api.goit.global',

@@ -1,4 +1,4 @@
-import { getBrandList, getCarsList } from '../api/api';
+import { getBrandList, getCarsList } from '@/lib/api/api';
 import {
   QueryClient,
   HydrationBoundary,
@@ -41,12 +41,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <CarsClient
-        brands={brands}
-        prices={prices}
-        clientMinMeleage={minMileage}
-        clientMaxMeleage={maxMileage}
-      />
+      <CarsClient brands={brands} prices={prices} />
     </HydrationBoundary>
   );
 }

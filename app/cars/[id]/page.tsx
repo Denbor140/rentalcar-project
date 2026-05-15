@@ -1,4 +1,4 @@
-import { getOneCar } from '@/app/api/api';
+import { getOneCar } from '@/lib/api/api';
 import {
   QueryClient,
   HydrationBoundary,

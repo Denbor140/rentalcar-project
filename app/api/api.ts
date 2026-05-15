@@ -9,6 +9,7 @@ export const api = axios.create({
 export interface FetchCarsListResponse {
   cars: Car[];
   totalPages: number;
+  page: number;
 }
 
 export const getCarsList = async (
@@ -16,8 +17,8 @@ export const getCarsList = async (
   rentalPrice: string,
   minMileage: string,
   maxMileage: string,
-  limit: number,
-  page: number
+  page: number,
+  limit = 12
 ) => {
   const { data } = await api.get<FetchCarsListResponse>('/cars', {
     params: {
@@ -25,8 +26,8 @@ export const getCarsList = async (
       rentalPrice,
       minMileage,
       maxMileage,
-      limit: String(limit),
-      page: String(page),
+      limit,
+      page,
     },
   });
   return data;

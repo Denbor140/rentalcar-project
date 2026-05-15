@@ -1,12 +1,10 @@
-import { getCarsList } from '../api/api';
+import { getBrandList, getCarsList } from '../api/api';
 import {
   QueryClient,
   HydrationBoundary,
   dehydrate,
 } from '@tanstack/react-query';
 import CarsClient from './Cars.client';
-
-const limit = 12;
 
 interface CatalogPageProps {
   searchParams?: {
@@ -29,14 +27,14 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: ['cars', brand, price, minMileage, maxMileage, page],
-    queryFn: () =>
-      getCarsList(brand, price, minMileage, maxMileage, limit, page),
+    queryFn: () => getCarsList(brand, price, minMileage, maxMileage, page),
   });
 
-  const carsForFilters = await getCarsList('', '', '', '', 1000, 1);
-  const brands = [...new Set(carsForFilters.cars.map((c) => c.brand))].sort(
-    (a, b) => a.localeCompare(b)
-  );
+  const [brands, carsForFilters] = await Promise.all([
+    getBrandList(),
+    getCarsList('', '', '', '', 1, 100),
+  ]);
+
   const prices = [
     ...new Set(carsForFilters.cars.map((c) => c.rentalPrice)),
   ].sort((a, b) => Number(a) - Number(b));

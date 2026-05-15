@@ -3,12 +3,10 @@
 import css from './page.module.css';
 import { useState } from 'react';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import { FetchCarsListResponse, getCarsList } from '../api/api';
+import { getCarsList } from '../api/api';
 import SearchBoxCar from '@/components/SearchBoxCar/SearchBoxCar';
 import CarList from '@/components/CarList/CarList';
 import Loader from '@/components/Loader/Loader';
-
-const limit = 12;
 
 interface CarsClientProps {
   brands: string[];
@@ -29,16 +27,20 @@ export default function CarsClient({
   const [maxMeleage, setMaxMileage] = useState(clientMaxMeleage);
   const [page, setPage] = useState(1);
 
-  const { data, isLoading } = useQuery<FetchCarsListResponse>({
-    queryKey: ['cars', brand, price, minMeleage, maxMeleage, limit, page],
-    queryFn: () =>
-      getCarsList(brand, price, minMeleage, maxMeleage, limit, page),
+  const { data, isLoading } = useQuery({
+    queryKey: ['cars', brand, price, minMeleage, maxMeleage, page],
+    queryFn: () => getCarsList(brand, price, minMeleage, maxMeleage, page),
     refetchOnMount: false,
     retry: 1,
     refetchOnWindowFocus: false,
     placeholderData: keepPreviousData,
     throwOnError: true,
   });
+
+  const totalPages = data?.totalPages ?? 0;
+  const hasMorePages = page < totalPages;
+  const cars = data?.cars ?? [];
+  const hasCars = cars.length > 0;
 
   const handleSearch = (
     brand: string,
@@ -72,6 +74,12 @@ export default function CarsClient({
               <section className={css.cars_list_container}>
                 {data && data.cars.length > 0 && <CarList cars={data?.cars} />}
               </section>
+
+              {hasCars && hasMorePages && (
+                <button type="button" className={css.load_more_btn}>
+                  Load more
+                </button>
+              )}
             </>
           )}
         </div>

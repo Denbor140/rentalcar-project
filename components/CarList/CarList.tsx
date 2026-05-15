@@ -45,7 +45,11 @@ export default function CarList({ cars }: CarListProps) {
               </div>
             </div>
 
-            <Link href={`/cars/${car.id}`} className={css.car_list_btn}>
+            <Link
+              href={`/cars/${car.id}`}
+              target="_blank"
+              className={css.car_list_btn}
+            >
               Read more
             </Link>
           </li>

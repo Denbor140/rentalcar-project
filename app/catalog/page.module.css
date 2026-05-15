@@ -41,3 +41,11 @@
 .load_more_btn:hover {
   border-color: #0095ba;
 }
+
+.loader_wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f5;
+}

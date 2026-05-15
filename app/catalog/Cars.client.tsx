@@ -2,7 +2,11 @@
 
 import css from './page.module.css';
 import { useState } from 'react';
-import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import {
+  keepPreviousData,
+  useInfiniteQuery,
+  useQuery,
+} from '@tanstack/react-query';
 import { getCarsList } from '@/lib/api/api';
 import SearchBoxCar from '@/components/SearchBoxCar/SearchBoxCar';
 import CarList from '@/components/CarList/CarList';
@@ -16,21 +20,24 @@ interface CarsClientProps {
 
 export default function CarsClient({ brands, prices }: CarsClientProps) {
   const { brand, price, minMileage, maxMileage, setFilters } = useCarsStore();
-  const [page, setPage] = useState(1);
 
-  const { data, isLoading } = useQuery({
-    queryKey: ['cars', brand, price, minMileage, maxMileage, page],
-    queryFn: () => getCarsList(brand, price, minMileage, maxMileage, page),
-    refetchOnMount: false,
-    retry: 1,
-    refetchOnWindowFocus: false,
-    placeholderData: keepPreviousData,
-    throwOnError: true,
-  });
-
-  const totalPages = data?.totalPages ?? 0;
-  const hasMorePages = page < totalPages;
-  const cars = data?.cars ?? [];
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
+    useInfiniteQuery({
+      queryKey: ['cars', brand, price, minMileage, maxMileage],
+      queryFn: ({ pageParam }) =>
+        getCarsList(brand, price, minMileage, maxMileage, pageParam),
+      initialPageParam: 1,
+      getNextPageParam: (lastPage, allPages) => {
+        const nextPage = allPages.length + 1;
+        return nextPage <= lastPage.totalPages ? nextPage : undefined;
+      },
+      refetchOnMount: false,
+      retry: 1,
+      refetchOnWindowFocus: false,
+      placeholderData: keepPreviousData,
+      throwOnError: true,
+    });
+  const cars = data?.pages.flatMap((page) => page.cars) ?? [];
   const hasCars = cars.length > 0;
 
   const handleSearch = (
@@ -40,7 +47,6 @@ export default function CarsClient({ brands, prices }: CarsClientProps) {
     max: string
   ) => {
     setFilters(brand, price, min, max);
-    setPage(1);
   };
 
   return (
@@ -59,11 +65,15 @@ export default function CarsClient({ brands, prices }: CarsClientProps) {
                 />
               </section>
               <section className={css.cars_list_container}>
-                {data && data.cars.length > 0 && <CarList cars={data?.cars} />}
+                {hasCars && <CarList cars={cars} />}
               </section>
 
-              {hasCars && hasMorePages && (
-                <button type="button" className={css.load_more_btn}>
+              {hasCars && hasNextPage && (
+                <button
+                  type="button"
+                  className={css.load_more_btn}
+                  onClick={() => fetchNextPage()}
+                >
                   Load more
                 </button>
               )}

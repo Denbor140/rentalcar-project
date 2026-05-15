@@ -26,8 +26,8 @@ export const getCarsList = async (
       rentalPrice,
       minMileage,
       maxMileage,
-      limit,
       page,
+      limit,
     },
   });
   return data;

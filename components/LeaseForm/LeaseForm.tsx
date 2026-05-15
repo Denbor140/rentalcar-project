@@ -44,35 +44,31 @@ export default function LeaseForm() {
         <p className={css.form_subtitle}>
           Stay connected! We are always ready to help you.
         </p>
-        <div>
-          <Field
-            className={css.form_input_name}
-            type="text"
-            name="username"
-            id={`${fieldId}-username`}
-            placeholder="Name*"
-          />
-          <ErrorMessage
-            name="username"
-            component="span"
-            className={css.error}
-          />
-          <Field
-            className={css.form_input_email}
-            type="email"
-            name="email"
-            id={`${fieldId}-email`}
-            placeholder="Email*"
-          />
-          <ErrorMessage name="email" component="span" className={css.error} />
-          <Field
-            className={css.form_textarea}
-            as="textarea"
-            name="comment"
-            id={`${fieldId}-comment`}
-            placeholder="Comment"
-          />
-        </div>
+
+        <Field
+          className={css.form_input_name}
+          type="text"
+          name="username"
+          id={`${fieldId}-username`}
+          placeholder="Name*"
+        />
+        <ErrorMessage name="username" component="span" className={css.error} />
+
+        <Field
+          className={css.form_input_email}
+          type="email"
+          name="email"
+          id={`${fieldId}-email`}
+          placeholder="Email*"
+        />
+        <ErrorMessage name="email" component="span" className={css.error} />
+        <Field
+          className={css.form_textarea}
+          as="textarea"
+          name="comment"
+          id={`${fieldId}-comment`}
+          placeholder="Comment"
+        />
 
         <button type="submit" className={css.form_btn}>
           Send

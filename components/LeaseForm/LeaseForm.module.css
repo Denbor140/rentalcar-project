@@ -2,7 +2,7 @@
   border-radius: 16px;
   padding: 32px;
   width: 640px;
-  height: 424px;
+  min-height: 424px;
   background-color: #fff;
 }
 

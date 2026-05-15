@@ -55,23 +55,27 @@ export default function CarsClient({
   };
 
   return (
-    <div className={`${css.container} ${css.page_container}`}>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <>
-          <section className={css.searchbox_container}>
-            <SearchBoxCar
-              brands={brands}
-              prices={prices}
-              onChange={handleSearch}
-            />
-          </section>
-          <section className={css.cars_list_container}>
-            {data && data.cars.length > 0 && <CarList cars={data?.cars} />}
-          </section>
-        </>
-      )}
-    </div>
+    <main className={css.main}>
+      <div className={css.container}>
+        <div className={` ${css.sections_container}`}>
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <>
+              <section className={css.searchbox_container}>
+                <SearchBoxCar
+                  brands={brands}
+                  prices={prices}
+                  onChange={handleSearch}
+                />
+              </section>
+              <section className={css.cars_list_container}>
+                {data && data.cars.length > 0 && <CarList cars={data?.cars} />}
+              </section>
+            </>
+          )}
+        </div>
+      </div>
+    </main>
   );
 }

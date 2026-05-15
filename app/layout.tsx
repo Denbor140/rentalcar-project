@@ -35,7 +35,7 @@ export default function RootLayout({
         <TanStackProvider>
           <div className={css.layout_container}>
             <Header />
-            <main className={css.main}>{children}</main>
+            {children}
           </div>
         </TanStackProvider>
       </body>

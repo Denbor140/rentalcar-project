@@ -5,6 +5,7 @@ import {
   dehydrate,
 } from '@tanstack/react-query';
 import CarDetailsClient from './CarDetails.client';
+import { notFound } from 'next/navigation';
 
 interface CarDetailsProps {
   params: Promise<{ id: string }>;
@@ -15,10 +16,14 @@ export default async function CarDetails({ params }: CarDetailsProps) {
 
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery({
+  const car = await queryClient.fetchQuery({
     queryKey: ['car', id],
     queryFn: () => getOneCar(id),
   });
+
+  if (!car) {
+    notFound();
+  }
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

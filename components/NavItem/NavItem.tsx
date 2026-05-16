@@ -17,7 +17,7 @@ export default function NavItem() {
       </Link>
       <Link
         href={'/catalog'}
-        className={`${css.nav_link} ${pathname.startsWith('/catalog') ? css.nav_link_active : ''}`}
+        className={`${css.nav_link} ${pathname === '/catalog' ? css.nav_link_active : ''}`}
       >
         Catalog
       </Link>

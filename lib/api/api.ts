@@ -30,16 +30,25 @@ export const getCarsList = async (
       limit,
     },
   });
+
   return data;
 };
 
-export const getOneCar = async (id: string): Promise<CarWithArticle> => {
-  const { data } = await api.get<Car>(`/cars/${id}`);
+export const getOneCar = async (id: string): Promise<CarWithArticle | null> => {
+  try {
+    const { data } = await api.get<Car>(`/cars/${id}`);
 
-  return {
-    ...data,
-    article: getArticleCar(data.img),
-  };
+    return {
+      ...data,
+      article: getArticleCar(data.img),
+    };
+  } catch (err) {
+    if (axios.isAxiosError(err) && err.response?.status === 404) {
+      return null;
+    }
+
+    throw err;
+  }
 };
 
 export const getBrandList = async () => {

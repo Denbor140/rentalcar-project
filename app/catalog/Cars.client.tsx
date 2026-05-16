@@ -28,6 +28,7 @@ export default function CarsClient({ brands, prices }: CarsClientProps) {
     isFetchingNextPage,
     isLoading,
     isFetching,
+    error,
   } = useInfiniteQuery({
     queryKey: ['cars', brand, price, minMileage, maxMileage],
     queryFn: ({ pageParam }) =>
@@ -41,8 +42,9 @@ export default function CarsClient({ brands, prices }: CarsClientProps) {
     retry: 1,
     refetchOnWindowFocus: false,
     placeholderData: keepPreviousData,
-    throwOnError: true,
+    throwOnError: false,
   });
+
   const cars = data?.pages.flatMap((page) => page.cars) ?? [];
   const hasCars = cars.length > 0;
 

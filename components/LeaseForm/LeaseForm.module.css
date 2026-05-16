@@ -19,6 +19,22 @@
   margin-bottom: 24px;
 }
 
+.field_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 16px;
+}
+
+.field_wrapper:first-of-type {
+  margin-top: 0;
+}
+
+.error {
+  color: red;
+  min-height: 16px;
+}
+
 .form_input_name,
 .form_input_email,
 .form_textarea {
@@ -30,10 +46,6 @@
   border: none;
   color: #8d929a;
   font-weight: 500;
-}
-
-.form_input_email {
-  margin-top: 16px;
 }
 
 .form_textarea {

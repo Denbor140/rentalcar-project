@@ -66,6 +66,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 16px;
+  gap: 4px;
 }
 
 .car_address,

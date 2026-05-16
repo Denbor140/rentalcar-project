@@ -3,18 +3,23 @@
 import { getOneCar } from '@/lib/api/api';
 import css from './CarDetails.module.css';
 import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import LeaseForm from '@/components/LeaseForm/LeaseForm';
 
-export default function CarDetailsClient() {
-  const { id } = useParams<{ id: string }>();
+interface CarDetailsClientProps {
+  id: string;
+}
 
+export default function CarDetailsClient({ id }: CarDetailsClientProps) {
   const { data: car } = useQuery({
     queryKey: ['car', id],
     queryFn: () => getOneCar(id),
     refetchOnMount: false,
   });
+
+  const [, ...rest] = (car?.address ?? '').split(', ');
+  const location = rest.join(', ');
+
   return (
     <main className={css.main}>
       <div className={css.container}>
@@ -22,8 +27,8 @@ export default function CarDetailsClient() {
           <div className={css.car_lease_container}>
             <Image
               className={css.car_img}
-              src={`${car?.img}`}
-              alt={`${car?.brand} ${car?.model}`}
+              src={car?.img ?? ''}
+              alt={`${car?.brand} ${car?.model} ${car?.year}`}
               width={640}
               height={512}
               loading="eager"
@@ -42,7 +47,7 @@ export default function CarDetailsClient() {
                 <svg width={16} height={16}>
                   <use href="/sprite.svg#icon-location"></use>
                 </svg>
-                <p className={css.car_address}>{car?.address}</p>
+                <p className={css.car_address}>{location}</p>
               </div>
               <p className={css.car_price}>{`$${car?.rentalPrice}`}</p>
               <p className={css.car_descr}>{car?.description}</p>

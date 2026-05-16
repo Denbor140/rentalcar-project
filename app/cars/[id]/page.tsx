@@ -27,7 +27,7 @@ export default async function CarDetails({ params }: CarDetailsProps) {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <CarDetailsClient />
+      <CarDetailsClient id={id} />
     </HydrationBoundary>
   );
 }

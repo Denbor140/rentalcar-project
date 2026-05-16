@@ -7,6 +7,10 @@ body {
   color: #101828;
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
 h1,
 h2,
 h3,

@@ -45,23 +45,32 @@ export default function LeaseForm() {
           Stay connected! We are always ready to help you.
         </p>
 
-        <Field
-          className={css.form_input_name}
-          type="text"
-          name="username"
-          id={`${fieldId}-username`}
-          placeholder="Name*"
-        />
-        <ErrorMessage name="username" component="span" className={css.error} />
+        <div className={css.field_wrapper}>
+          <Field
+            className={css.form_input_name}
+            type="text"
+            name="username"
+            id={`${fieldId}-username`}
+            placeholder="Name*"
+          />
+          <ErrorMessage
+            name="username"
+            component="span"
+            className={css.error}
+          />
+        </div>
 
-        <Field
-          className={css.form_input_email}
-          type="email"
-          name="email"
-          id={`${fieldId}-email`}
-          placeholder="Email*"
-        />
-        <ErrorMessage name="email" component="span" className={css.error} />
+        <div className={css.field_wrapper}>
+          <Field
+            className={css.form_input_email}
+            type="email"
+            name="email"
+            id={`${fieldId}-email`}
+            placeholder="Email*"
+          />
+          <ErrorMessage name="email" component="span" className={css.error} />
+        </div>
+
         <Field
           className={css.form_textarea}
           as="textarea"

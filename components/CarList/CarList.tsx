@@ -18,7 +18,7 @@ export default function CarList({ cars }: CarListProps) {
             <div className={css.car_card_container}>
               <Image
                 src={car.img}
-                alt={car.brand}
+                alt={`${car.brand} ${car.model} ${car.year}`}
                 width={244}
                 height={268}
                 className={css.card_img}

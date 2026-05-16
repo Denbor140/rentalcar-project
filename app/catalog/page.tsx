@@ -12,7 +12,6 @@ interface CatalogPageProps {
     searchForPrice: string;
     searchForMinMileage: string;
     searchForMaxMileage: string;
-    page: number;
   };
 }
 
@@ -22,12 +21,13 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
   const price = params?.searchForPrice ?? '';
   const minMileage = params?.searchForMinMileage ?? '';
   const maxMileage = params?.searchForMaxMileage ?? '';
-  const page = params?.page ?? 1;
 
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery({
-    queryKey: ['cars', brand, price, minMileage, maxMileage, page],
-    queryFn: () => getCarsList(brand, price, minMileage, maxMileage, page),
+  await queryClient.prefetchInfiniteQuery({
+    queryKey: ['cars', brand, price, minMileage, maxMileage],
+    queryFn: ({ pageParam }) =>
+      getCarsList(brand, price, minMileage, maxMileage, pageParam),
+    initialPageParam: 1,
   });
 
   const [brands, carsForFilters] = await Promise.all([
@@ -36,7 +36,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
   ]);
 
   const prices = [
-    ...new Set(carsForFilters.cars.map((c) => c.rentalPrice)),
+    ...new Set((carsForFilters?.cars ?? []).map((c) => c.rentalPrice)),
   ].sort((a, b) => Number(a) - Number(b));
 
   return (

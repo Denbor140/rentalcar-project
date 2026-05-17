@@ -19,6 +19,7 @@ export default function CarList({ cars }: CarListProps) {
               width={244}
               height={268}
               className={css.card_img}
+              loading="eager"
             />
 
             <div className={css.car_info_container}>

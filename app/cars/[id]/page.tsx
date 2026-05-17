@@ -6,9 +6,22 @@ import {
 } from '@tanstack/react-query';
 import CarDetailsClient from './CarDetails.client';
 import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
 
 interface CarDetailsProps {
   params: Promise<{ id: string }>;
+}
+
+export async function generateMetadata({
+  params,
+}: CarDetailsProps): Promise<Metadata> {
+  const { id } = await params;
+  const car = await getOneCar(id);
+
+  return {
+    title: `Car ${car?.brand} ${car?.model} ${car?.year}`,
+    description: car?.description,
+  };
 }
 
 export default async function CarDetails({ params }: CarDetailsProps) {

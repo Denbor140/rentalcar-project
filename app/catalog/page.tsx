@@ -5,6 +5,7 @@ import {
   dehydrate,
 } from '@tanstack/react-query';
 import CarsClient from './Cars.client';
+import { Metadata } from 'next';
 
 const PER_PAGE = 12;
 
@@ -14,6 +15,13 @@ interface CatalogPageProps {
     price: string;
     minMileage: string;
     maxMileage: string;
+  };
+}
+
+export async function generateMetadata({}): Promise<Metadata> {
+  return {
+    title: `Car catalog`,
+    description: `Browse your car`,
   };
 }
 

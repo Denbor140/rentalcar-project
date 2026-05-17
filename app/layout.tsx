@@ -22,7 +22,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: 'Rental Car',
-  description: 'Creating by GOIT',
+  description: 'Create by GO IT - Denys Boreiko',
 };
 
 export default function RootLayout({

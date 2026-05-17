@@ -1,4 +1,4 @@
-# 🕊️ RentalCar — company, which rents cars
+# 🚗 RentalCar — company, which rents cars
 
 ![Next.js](https://img.shields.io/badge/Next.js-15-black)
 ![React](https://img.shields.io/badge/React-19-blue)

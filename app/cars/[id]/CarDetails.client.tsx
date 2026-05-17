@@ -17,9 +17,6 @@ export default function CarDetailsClient({ id }: CarDetailsClientProps) {
     refetchOnMount: false,
   });
 
-  const [, ...rest] = (car?.address ?? '').split(', ');
-  const location = rest.join(', ');
-
   return (
     <main className={css.main}>
       <div className={css.container}>
@@ -47,7 +44,9 @@ export default function CarDetailsClient({ id }: CarDetailsClientProps) {
                 <svg width={16} height={16}>
                   <use href="/sprite.svg#icon-location"></use>
                 </svg>
-                <p className={css.car_address}>{location}</p>
+                <p className={css.car_address}>
+                  {car?.location.city}, {car?.location.country}
+                </p>
               </div>
               <p className={css.car_price}>{`$${car?.rentalPrice}`}</p>
               <p className={css.car_descr}>{car?.description}</p>
@@ -93,7 +92,7 @@ export default function CarDetailsClient({ id }: CarDetailsClientProps) {
                     <svg width={16} height={16}>
                       <use href="/sprite.svg#icon-gear"></use>
                     </svg>
-                    Engine: {car?.engineSize}
+                    Engine: {car?.engine}
                   </li>
                   <li className={css.car_specification_item}>
                     <svg width={16} height={16}>
@@ -106,29 +105,14 @@ export default function CarDetailsClient({ id }: CarDetailsClientProps) {
               <div className={css.car_features_wrapper}>
                 <h3 className={css.car_features_title}>Features</h3>
                 <ul className={css.car_features_list}>
-                  {(car?.accessories ?? [])
-                    .sort((a, b) => a.localeCompare(b))
-                    .map((accessorie) => (
-                      <li key={accessorie} className={css.car_accessorie_item}>
-                        <svg width={16} height={16}>
-                          <use href="/sprite.svg#icon-check-circle"></use>
-                        </svg>
-                        {accessorie}
-                      </li>
-                    ))}
-                  {(car?.functionalities ?? [])
-                    .sort((a, b) => a.localeCompare(b))
-                    .map((functionalitie) => (
-                      <li
-                        key={functionalitie}
-                        className={css.car_functionalitie_item}
-                      >
-                        <svg width={16} height={16}>
-                          <use href="/sprite.svg#icon-check-circle"></use>
-                        </svg>
-                        {functionalitie}
-                      </li>
-                    ))}
+                  {car?.features.map((feature) => (
+                    <li key={feature} className={css.car_feature_item}>
+                      <svg width={16} height={16}>
+                        <use href="/sprite.svg#icon-check-circle"></use>
+                      </svg>
+                      {feature}
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>

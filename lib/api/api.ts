@@ -3,7 +3,7 @@ import { Car, CarWithArticle } from '@/app/types/car';
 import { getArticleCar } from '@/app/api/_utils/getArticleCar';
 
 export const api = axios.create({
-  baseURL: 'https://car-rental-api.goit.global',
+  baseURL: 'https://car-rental-api.goit.study',
 });
 
 export interface FetchCarsListResponse {
@@ -12,22 +12,30 @@ export interface FetchCarsListResponse {
   page: number;
 }
 
+interface CarsFiltersResponse {
+  brands: string[];
+  price: {
+    min: number;
+    max: number;
+  };
+}
+
 export const getCarsList = async (
   brand: string,
-  rentalPrice: string,
-  minMileage: string,
-  maxMileage: string,
-  page: number,
-  limit = 12
+  price: number,
+  minMileage: number,
+  maxMileage: number,
+  perPage: number,
+  page: number
 ) => {
   const { data } = await api.get<FetchCarsListResponse>('/cars', {
     params: {
-      brand,
-      rentalPrice,
-      minMileage,
-      maxMileage,
+      ...(brand && { brand }),
+      ...(price && { price }),
+      ...(minMileage && { minMileage }),
+      ...(maxMileage && { maxMileage }),
+      perPage,
       page,
-      limit,
     },
   });
 
@@ -51,7 +59,7 @@ export const getOneCar = async (id: string): Promise<CarWithArticle | null> => {
   }
 };
 
-export const getBrandList = async () => {
-  const { data } = await api.get<string[]>('/brands');
+export const getCarsFilters = async () => {
+  const { data } = await api.get<CarsFiltersResponse>('/cars/filters');
   return data;
 };

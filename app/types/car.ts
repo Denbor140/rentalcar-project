@@ -7,14 +7,18 @@ export interface Car {
   img: string;
   description: string;
   fuelConsumption: string;
-  engineSize: string;
-  accessories: string[];
-  functionalities: string[];
+  engine: string;
   rentalPrice: string;
   rentalCompany: string;
-  address: string;
   rentalConditions: string[];
   mileage: number;
+  stockNumber: string;
+  features: string[];
+  location: {
+    country: string;
+    city: string;
+    address: string;
+  };
 }
 
 export interface CarWithArticle extends Car {

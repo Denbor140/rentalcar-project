@@ -1,4 +1,4 @@
-import { getBrandList, getCarsList } from '@/lib/api/api';
+import { getCarsFilters, getCarsList } from '@/lib/api/api';
 import {
   QueryClient,
   HydrationBoundary,
@@ -6,42 +6,44 @@ import {
 } from '@tanstack/react-query';
 import CarsClient from './Cars.client';
 
+const PER_PAGE = 12;
+
 interface CatalogPageProps {
   searchParams?: {
-    searchForBrand: string;
-    searchForPrice: string;
-    searchForMinMileage: string;
-    searchForMaxMileage: string;
+    brand: string;
+    price: string;
+    minMileage: string;
+    maxMileage: string;
   };
 }
 
 export default async function CatalogPage({ searchParams }: CatalogPageProps) {
   const params = await searchParams;
-  const brand = params?.searchForBrand ?? '';
-  const price = params?.searchForPrice ?? '';
-  const minMileage = params?.searchForMinMileage ?? '';
-  const maxMileage = params?.searchForMaxMileage ?? '';
+  const brand = params?.brand ?? '';
+  const price = params?.price ?? '';
+  const minMileage = params?.minMileage ?? '';
+  const maxMileage = params?.maxMileage ?? '';
 
   const queryClient = new QueryClient();
   await queryClient.prefetchInfiniteQuery({
     queryKey: ['cars', brand, price, minMileage, maxMileage],
     queryFn: ({ pageParam }) =>
-      getCarsList(brand, price, minMileage, maxMileage, pageParam),
+      getCarsList(
+        brand,
+        Number(price),
+        Number(minMileage),
+        Number(maxMileage),
+        PER_PAGE,
+        pageParam
+      ),
     initialPageParam: 1,
   });
 
-  const [brands, carsForFilters] = await Promise.all([
-    getBrandList(),
-    getCarsList('', '', '', '', 1, 100),
-  ]);
-
-  const prices = [
-    ...new Set((carsForFilters?.cars ?? []).map((c) => c.rentalPrice)),
-  ].sort((a, b) => Number(a) - Number(b));
+  const { brands, price: priceRange } = await getCarsFilters();
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <CarsClient brands={brands} prices={prices} />
+      <CarsClient brands={brands} price={priceRange} />
     </HydrationBoundary>
   );
 }

@@ -11,22 +11,37 @@ import SearchBoxCar from '@/components/SearchBoxCar/SearchBoxCar';
 import CarList from '@/components/CarList/CarList';
 import Loader from '@/components/Loader/Loader';
 import { useCarsStore } from '@/lib/store/carsStore';
-import { useEffect } from 'react';
+import { PriceRange } from '../api/_utils/generatePriceOptions';
+
+const PER_PAGE = 12;
 
 interface CarsClientProps {
   brands: string[];
-  prices: string[];
+  price: PriceRange;
 }
 
-export default function CarsClient({ brands, prices }: CarsClientProps) {
-  const { brand, price, minMileage, maxMileage, setFilters } = useCarsStore();
+export default function CarsClient({ brands, price }: CarsClientProps) {
+  const {
+    brand,
+    price: selectedPrice,
+    minMileage,
+    maxMileage,
+    setFilters,
+  } = useCarsStore();
   const queryClient = useQueryClient();
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
     useInfiniteQuery({
-      queryKey: ['cars', brand, price, minMileage, maxMileage],
+      queryKey: ['cars', brand, selectedPrice, minMileage, maxMileage],
       queryFn: ({ pageParam }) =>
-        getCarsList(brand, price, minMileage, maxMileage, pageParam),
+        getCarsList(
+          brand,
+          Number(selectedPrice),
+          Number(minMileage),
+          Number(maxMileage),
+          PER_PAGE,
+          pageParam
+        ),
       initialPageParam: 1,
       getNextPageParam: (lastPage, allPages) => {
         const nextPage = allPages.length + 1;
@@ -38,10 +53,6 @@ export default function CarsClient({ brands, prices }: CarsClientProps) {
       placeholderData: keepPreviousData,
       throwOnError: false,
     });
-
-  useEffect(() => {
-    setFilters(brand, price, minMileage, maxMileage);
-  }, [brand, price, minMileage, maxMileage, setFilters]);
 
   const handleSearch = (
     brand: string,
@@ -66,11 +77,11 @@ export default function CarsClient({ brands, prices }: CarsClientProps) {
           <section className={css.searchbox_container}>
             <SearchBoxCar
               brands={brands}
-              prices={prices}
+              prices={price}
               onChange={handleSearch}
             />
           </section>
-          {isFetching && !isFetchingNextPage && data ? (
+          {data && isFetching && !isFetchingNextPage ? (
             <Loader />
           ) : (
             <section className={css.cars_list_container}>

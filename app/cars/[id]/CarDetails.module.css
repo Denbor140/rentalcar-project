@@ -114,8 +114,7 @@
 
 .car_condition_item,
 .car_specification_item,
-.car_accessorie_item,
-.car_functionalitie_item {
+.car_feature_item {
   display: flex;
   gap: 8px;
   font-weight: 500;

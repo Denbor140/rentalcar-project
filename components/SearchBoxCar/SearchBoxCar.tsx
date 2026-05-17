@@ -1,10 +1,14 @@
-import CustomSelect from '../CustomSelect/CustomSelect';
 import css from './SearchBoxCar.module.css';
 import { useId, useState } from 'react';
+import {
+  generatePriceOptions,
+  PriceRange,
+} from '@/app/api/_utils/generatePriceOptions';
+import CustomSelect from '../CustomSelect/CustomSelect';
 
 interface SearchBoxCarProps {
   brands: string[];
-  prices: string[];
+  prices: PriceRange;
   onChange: (brand: string, price: string, min: string, max: string) => void;
 }
 
@@ -18,6 +22,8 @@ export default function SearchBoxCar({
   const [price, setPrice] = useState('');
   const [minMileage, setMinMileage] = useState('');
   const [maxMileage, setMaxMileage] = useState('');
+
+  const priceOptions = generatePriceOptions(prices);
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -53,7 +59,7 @@ export default function SearchBoxCar({
             Price/ 1 hour
           </label>
           <CustomSelect
-            options={prices}
+            options={priceOptions}
             value={price}
             onChange={setPrice}
             placeholder="Choose a price"
@@ -63,7 +69,7 @@ export default function SearchBoxCar({
 
         <div className={css.mileage_container}>
           <label htmlFor={`${fieldId}-mileage`} className={css.form_label}>
-            Сar mileage / km
+            Car mileage / km
           </label>
           <div>
             <input
@@ -71,7 +77,7 @@ export default function SearchBoxCar({
               name="minMileage"
               value={minMileage}
               placeholder="From"
-              id={`${fieldId}-mileage`}
+              id={`${fieldId}-minMileage`}
               className={css.min_input}
               onChange={(e) => setMinMileage(e.target.value)}
             />
@@ -80,7 +86,7 @@ export default function SearchBoxCar({
               name="maxMileage"
               value={maxMileage}
               placeholder="To"
-              id={`${fieldId}-mileage`}
+              id={`${fieldId}-maxMileage`}
               className={css.max_input}
               onChange={(e) => setMaxMileage(e.target.value)}
             />

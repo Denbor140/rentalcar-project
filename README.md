@@ -65,6 +65,9 @@ http://localhost:3000
 
 ---
 
-## 🧑‍🤝‍🧑 Team
+## 👤 Author
 
-GOIT Individual Project
+**Denys Boreiko**
+
+- GitHub: [@Denbor140](https://github.com/Denbor140)
+- LinkedIn: [denys-b](https://www.linkedin.com/in/denys-b-/)

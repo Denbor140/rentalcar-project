@@ -4,6 +4,7 @@ import './globals.css';
 import Header from '@/components/Header/Header';
 import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
 import css from './page.module.css';
+import { Toaster } from 'react-hot-toast';
 
 const manrope = Manrope({
   variable: '--font-family',
@@ -33,6 +34,12 @@ export default function RootLayout({
     <html lang="en" className={`${manrope.variable} ${inter.variable}`}>
       <body>
         <TanStackProvider>
+          <Toaster
+            position="top-right"
+            toastOptions={{
+              duration: 5000,
+            }}
+          />
           <div className={css.layout_container}>
             <Header />
             {children}

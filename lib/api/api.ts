@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Car, CarWithArticle } from '@/app/types/car';
 import { getArticleCar } from '@/app/api/_utils/getArticleCar';
+import { OrderRequest } from '@/app/types/orderRequest';
 
 export const api = axios.create({
   baseURL: 'https://car-rental-api.goit.study',
@@ -61,5 +62,13 @@ export const getOneCar = async (id: string): Promise<CarWithArticle | null> => {
 
 export const getCarsFilters = async () => {
   const { data } = await api.get<CarsFiltersResponse>('/cars/filters');
+  return data;
+};
+
+export const createBookingRequest = async (
+  carId: string,
+  newOrder: OrderRequest
+) => {
+  const { data } = await api.post(`/cars/${carId}/booking-requests`, newOrder);
   return data;
 };

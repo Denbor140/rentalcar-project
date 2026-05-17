@@ -30,7 +30,7 @@ export default function CarDetailsClient({ id }: CarDetailsClientProps) {
               height={512}
               loading="eager"
             />
-            <LeaseForm />
+            <LeaseForm carId={id} />
           </div>
           <div className={css.car_details_container}>
             <div className={css.car_details_wrapper}>

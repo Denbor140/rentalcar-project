@@ -4,7 +4,7 @@ import { getArticleCar } from '@/app/api/_utils/getArticleCar';
 import { OrderRequest } from '@/app/types/orderRequest';
 
 export const api = axios.create({
-  baseURL: 'https://car-rental-api.goit.study',
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
 export interface FetchCarsListResponse {

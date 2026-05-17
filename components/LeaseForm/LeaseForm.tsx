@@ -42,9 +42,9 @@ export default function LeaseForm({ carId }: LeaseFormProps) {
 
   const { mutate, isPending } = useMutation({
     mutationFn: (order: OrderRequest) => createBookingRequest(carId, order),
-    onSuccess() {
+    onSuccess(data) {
       queryClient.invalidateQueries({ queryKey: ['orders'] });
-      toast.success('Booking your car sent successfully!');
+      toast.success(data.message);
     },
     onError() {
       toast.error('Something went wrong. Try again.');
@@ -83,7 +83,7 @@ export default function LeaseForm({ carId }: LeaseFormProps) {
             className={css.form_input_name}
             type="text"
             name="name"
-            id={`${fieldId}-username`}
+            id={`${fieldId}-name`}
             placeholder="Name*"
           />
           <ErrorMessage name="name" component="span" className={css.error} />

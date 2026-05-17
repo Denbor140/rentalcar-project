@@ -21,6 +21,10 @@ interface CarsFiltersResponse {
   };
 }
 
+interface createBookingRequesResponse {
+  message: string;
+}
+
 export const getCarsList = async (
   brand: string,
   price: number,
@@ -69,6 +73,9 @@ export const createBookingRequest = async (
   carId: string,
   newOrder: OrderRequest
 ) => {
-  const { data } = await api.post(`/cars/${carId}/booking-requests`, newOrder);
+  const { data } = await api.post<createBookingRequesResponse>(
+    `/cars/${carId}/booking-requests`,
+    newOrder
+  );
   return data;
 };
